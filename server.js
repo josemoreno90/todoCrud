@@ -9,18 +9,18 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/views')
 
 
-const products = [
+const todos = [
   {
     id:1,
-    name:"laptop"
+    name:"eat"
   },
   {
     id:2,
-    name:"cherries"
+    name:"sleep"
   },
   {
     id:3,
-    name:"rabbit"
+    name:"repeat"
   },
 ]
 
@@ -30,41 +30,41 @@ app.get('/', function(req,res) {
   res.render("index")
 })
 
-app.get('/products', function(req, res) {
-  res.send({products:products});
+app.get('/todos', function(req, res) {
+  res.send({todos:todos});
 })
 
-app.post('/products', function(req, res) {
-  let productName = req.body.name;
+app.post('/todos', function(req, res) {
+  let todoName = req.body.name;
   currentId++;
 
-  products.push({
+  todos.push({
     id: currentId,
-    name: productName
+    name: todoName
   })
-  res.send("Succesfully Created Product");
+  res.send("Succesfully Created todo");
 })
 
-app.put('/products/:id', function(req,res) {
+app.put('/todos/:id', function(req,res) {
   let id = req.params.id;
   let newName = req.body.newName;
   let found = false;
-  products.forEach(function(product, index) {
-    if(!found && product.id === Number(id)) {
-      product.name = newName;
+  todos.forEach(function(todo, index) {
+    if(!found && todo.id === Number(id)) {
+      todo.name = newName;
     }
   })
   res.send("Succesfully updated")
 })
 
-app.delete('/products/:id', function(req, res) {
+app.delete('/todos/:id', function(req, res) {
   const id = req.params.id;
 
   const found = false;
 
-  products.forEach(function(product, index) {
-    if(!found && product.id === Number(id)) {
-      products.splice(index,1);
+  todos.forEach(function(todo, index) {
+    if(!found && todo.id === Number(id)) {
+      todos.splice(index,1);
     }
   })
   res.send("sucessfully deleted")
